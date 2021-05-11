@@ -52,13 +52,19 @@ for n=1:101
     Traco = Rhos(1,1)+Rhos(2,2)+Rhos(3,3)+Rhos(4,4);    
     assert(Traco < (1+exp(-10)) && Traco > (-1-exp(-10)))
     
-    % Tomografia unitária
-   Rho_parcial_SzSy = Tomografia_parcial_SzSy(Rhos);
+    % Tomografia parcial
+   Rho_parcial_SzSy = Tomografia_parcial_SzSy(Rhos); % Não foi medido em Sx
+   Rho_parcial_SzSx = Tomografia_parcial_SzSx(Rhos); % Não foi medido em Sy
 
    %Armazenamento da matriz densidade parcial
-   Werner_parcial = reshape(Rho_parcial_SzSy, 1, 16);
-   Werner_parcial1 = real(Werner_parcial);
-   W_parcial_101(n, 1:16) = (Werner_parcial1);
+   Werner_parcial_SzSy = reshape(Rho_parcial_SzSy, 1, 16);
+   Werner_parcial1 = real(Werner_parcial_SzSy);
+   W_parcial_SzSy_101(n, 1:16) = (Werner_parcial1);
+   
+   
+   Werner_parcial_SzSx = reshape(Rho_parcial_SzSy, 1, 16);
+   Werner_parcial2 = real(Werner_parcial_SzSx);
+   W_parcial_SzSx_101(n, 1:16) = (Werner_parcial2);
         
     % Armazenamento da matriz densidade do estado de Werner  
     % Conversão de dados
@@ -143,7 +149,8 @@ Dados = horzcat(W_estados_101, W_PPT_101);
 save('W_estados_101.mat', 'W_estados_101');
 save('W_PPT_101.mat','W_PPT_101');
 save('W_P_101.mat', 'W_P_101');
-save('W_parcial_101.mat', 'W_parcial_101');
+save('W_parcial_SzSy_101.mat', 'W_parcial_SzSy_101');
+save('W_parcial_SzSx_101.mat', 'W_parcial_SzSx_101');
 
 % Gráfico classificatório
 x = x(x>=0);

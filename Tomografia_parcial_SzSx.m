@@ -1,4 +1,4 @@
-function [Rho] = Tomografia(Entrada)
+function [Rho_parcial_SzSx] = Tomografia_parcial_SzSx(Rhos)
 % Dispositivos ópticos
 % Variáveis importantes
 x1 = pi/8;
@@ -6,24 +6,6 @@ x2 = 0;
 y1 = pi/8;
 y2 = 0;
 y3 = -pi/2;
-
-%HWP
-HWP = [[cos(2*x1), sin(2*x1)]; [sin(2*x1), -cos(2*x1)]];
-
-%QWP
-QWP = [[cos(2*x2)^2-1i*(sin(2*x2))^2, cos(2*x2)*sin(2*x2)*(1+1i)];...
-    [cos(2*x2)*sin(2*x2)*(1+1i), -1i*(cos(2*x2))^2+(sin(2*x2))^2]];
-
-%DP
-DP = [[cos(2*y1), sin(2*y1)]; [sin(2*y1), -cos(2*y1)]];
-
-%CL
-CL = [[cos(y2)^2+(exp(1i*y3))*(sin(y2))^2, cos(y2)*sin(y2)*(exp(1i*y3)-1)];...
-    [(exp(1i*y3)-1)*sin(y2)*cos(y2), exp(1i*y3)*(cos(y2))^2+(sin(y2))^2]];
-
-%Beam Splitter matrix 50/50
-BS = 1/sqrt(2)*[1 1; 1 -1];
-
 
 %Matrizes básicas
 %Matriz identidade
@@ -33,6 +15,25 @@ s0 = I;
 s1 = [0 1;1 0];
 s2 = [0 -1i; 1i 0];
 s3 = [1 0; 0 -1];
+
+%HWP
+HWP = [[cos(2*x1), sin(2*x1)]; [sin(2*x1), -cos(2*x1)]];
+
+%QWP (não será medido para não medir Sy)
+%QWP = [[cos(2*x2)^2-1i*(sin(2*x2))^2, cos(2*x2)*sin(2*x2)*(1+1i)];...
+%    [cos(2*x2)*sin(2*x2)*(1+1i), -1i*(cos(2*x2))^2+(sin(2*x2))^2]];
+QWP = I;
+
+%DP
+DP = [[cos(2*y1), sin(2*y1)]; [sin(2*y1), -cos(2*y1)]];
+
+%CL (não será medido para não medir Sy)
+%CL = [[cos(y2)^2+(exp(1i*y3))*(sin(y2))^2, cos(y2)*sin(y2)*(exp(1i*y3)-1)];...
+%    [(exp(1i*y3)-1)*sin(y2)*cos(y2), exp(1i*y3)*(cos(y2))^2+(sin(y2))^2]];
+CL = I;
+
+%Beam Splitter matrix 50/50
+BS = 1/sqrt(2)*[1 1; 1 -1];
 
 % Bases de medida
 H = [1;0];
@@ -90,50 +91,50 @@ AR = kron(A,R);
 AL = kron(A,L);
 
 % Circuito: probabilidades
-PHH = ((HH)'*Entrada*HH)'*((HH)'*Entrada*HH);
-PHV = ((HV)'*Entrada*HV)'*((HV)'*Entrada*HV);
-PVH = ((VH)'*Entrada*VH)'*((VH)'*Entrada*VH);
-PVV = ((VV)'*Entrada*VV)'*((VV)'*Entrada*VV);
+PHH = ((HH)'*Rhos*HH)'*((HH)'*Rhos*HH);
+PHV = ((HV)'*Rhos*HV)'*((HV)'*Rhos*HV);
+PVH = ((VH)'*Rhos*VH)'*((VH)'*Rhos*VH);
+PVV = ((VV)'*Rhos*VV)'*((VV)'*Rhos*VV);
 
-PHD = ((HH)'*kron(I,DP)*Entrada*HH)'*((HH)'*kron(I,DP)*Entrada*HH);
-PHA = ((HV)'*kron(I,DP)*Entrada*HV)'*((HV)'*kron(I,DP)*Entrada*HV);
-PVD = ((VH)'*kron(I,DP)*Entrada*VH)'*((VH)'*kron(I,DP)*Entrada*VH);
-PVA = ((VV)'*kron(I,DP)*Entrada*VV)'*((VV)'*kron(I,DP)*Entrada*VV);
+PHD = ((HH)'*kron(I,DP)*Rhos*HH)'*((HH)'*kron(I,DP)*Rhos*HH);
+PHA = ((HV)'*kron(I,DP)*Rhos*HV)'*((HV)'*kron(I,DP)*Rhos*HV);
+PVD = ((VH)'*kron(I,DP)*Rhos*VH)'*((VH)'*kron(I,DP)*Rhos*VH);
+PVA = ((VV)'*kron(I,DP)*Rhos*VV)'*((VV)'*kron(I,DP)*Rhos*VV);
 
-PHR = ((HH)'*kron(I,DP*CL)*Entrada*HH)'*((HH)'*kron(I,DP*CL)*Entrada*HH);
-PHL = ((HV)'*kron(I,DP*CL)*Entrada*HV)'*((HV)'*kron(I,DP*CL)*Entrada*HV);
-PVR = ((VH)'*kron(I,DP*CL)*Entrada*VH)'*((VH)'*kron(I,DP*CL)*Entrada*VH);
-PVL = ((VV)'*kron(I,DP*CL)*Entrada*VV)'*((VV)'*kron(I,DP*CL)*Entrada*VV);
+PHR = ((HH)'*kron(I,DP*CL)*Rhos*HH)'*((HH)'*kron(I,DP*CL)*Rhos*HH);
+PHL = ((HV)'*kron(I,DP*CL)*Rhos*HV)'*((HV)'*kron(I,DP*CL)*Rhos*HV);
+PVR = ((VH)'*kron(I,DP*CL)*Rhos*VH)'*((VH)'*kron(I,DP*CL)*Rhos*VH);
+PVL = ((VV)'*kron(I,DP*CL)*Rhos*VV)'*((VV)'*kron(I,DP*CL)*Rhos*VV);
 
-PDD = ((HH)'*kron(HWP,DP)*Entrada*HH)'*((HH)'*kron(HWP,DP)*Entrada*HH);
-PDA = ((HV)'*kron(HWP,DP)*Entrada*HV)'*((HV)'*kron(HWP,DP)*Entrada*HV);
-PAD = ((VH)'*kron(HWP,DP)*Entrada*VH)'*((VH)'*kron(HWP,DP)*Entrada*VH);
-PAA = ((VV)'*kron(HWP,DP)*Entrada*VV)'*((VV)'*kron(HWP,DP)*Entrada*VV);
+PDD = ((HH)'*kron(HWP,DP)*Rhos*HH)'*((HH)'*kron(HWP,DP)*Rhos*HH);
+PDA = ((HV)'*kron(HWP,DP)*Rhos*HV)'*((HV)'*kron(HWP,DP)*Rhos*HV);
+PAD = ((VH)'*kron(HWP,DP)*Rhos*VH)'*((VH)'*kron(HWP,DP)*Rhos*VH);
+PAA = ((VV)'*kron(HWP,DP)*Rhos*VV)'*((VV)'*kron(HWP,DP)*Rhos*VV);
 
-PDH = ((HH)'*kron(HWP,I)*Entrada*HH)'*((HH)'*kron(HWP,I)*Entrada*HH);
-PDV = ((HV)'*kron(HWP,I)*Entrada*HV)'*((HV)'*kron(HWP,I)*Entrada*HV);
-PAH = ((VH)'*kron(HWP,I)*Entrada*VH)'*((VH)'*kron(HWP,I)*Entrada*VH);
-PAV = ((VV)'*kron(HWP,I)*Entrada*VV)'*((VV)'*kron(HWP,I)*Entrada*VV);
+PDH = ((HH)'*kron(HWP,I)*Rhos*HH)'*((HH)'*kron(HWP,I)*Rhos*HH);
+PDV = ((HV)'*kron(HWP,I)*Rhos*HV)'*((HV)'*kron(HWP,I)*Rhos*HV);
+PAH = ((VH)'*kron(HWP,I)*Rhos*VH)'*((VH)'*kron(HWP,I)*Rhos*VH);
+PAV = ((VV)'*kron(HWP,I)*Rhos*VV)'*((VV)'*kron(HWP,I)*Rhos*VV);
 
-PDR = ((HH)'*kron(HWP,DP*CL)*Entrada*HH)'*((HH)'*kron(HWP,DP*CL)*Entrada*HH);
-PDL = ((HV)'*kron(HWP,DP*CL)*Entrada*HV)'*((HV)'*kron(HWP,DP*CL)*Entrada*HV);
-PAL = ((VH)'*kron(HWP,DP*CL)*Entrada*VH)'*((VH)'*kron(HWP,DP*CL)*Entrada*VH);
-PAR = ((VV)'*kron(HWP,DP*CL)*Entrada*VV)'*((VV)'*kron(HWP,DP*CL)*Entrada*VV);
+PDR = ((HH)'*kron(HWP,DP*CL)*Rhos*HH)'*((HH)'*kron(HWP,DP*CL)*Rhos*HH);
+PDL = ((HV)'*kron(HWP,DP*CL)*Rhos*HV)'*((HV)'*kron(HWP,DP*CL)*Rhos*HV);
+PAL = ((VH)'*kron(HWP,DP*CL)*Rhos*VH)'*((VH)'*kron(HWP,DP*CL)*Rhos*VH);
+PAR = ((VV)'*kron(HWP,DP*CL)*Rhos*VV)'*((VV)'*kron(HWP,DP*CL)*Rhos*VV);
 
-PRR = ((HH)'*kron(HWP*QWP,DP*CL)*Entrada*HH)'*((HH)'*kron(HWP*QWP,DP*CL)*Entrada*HH);
-PRL = ((HV)'*kron(HWP*QWP,DP*CL)*Entrada*HV)'*((HV)'*kron(HWP*QWP,DP*CL)*Entrada*HV);
-PLR = ((VH)'*kron(HWP*QWP,DP*CL)*Entrada*VH)'*((VH)'*kron(HWP*QWP,DP*CL)*Entrada*VH);
-PLL = ((VV)'*kron(HWP*QWP,DP*CL)*Entrada*VV)'*((VV)'*kron(HWP*QWP,DP*CL)*Entrada*VV);
+PRR = ((HH)'*kron(HWP*QWP,DP*CL)*Rhos*HH)'*((HH)'*kron(HWP*QWP,DP*CL)*Rhos*HH);
+PRL = ((HV)'*kron(HWP*QWP,DP*CL)*Rhos*HV)'*((HV)'*kron(HWP*QWP,DP*CL)*Rhos*HV);
+PLR = ((VH)'*kron(HWP*QWP,DP*CL)*Rhos*VH)'*((VH)'*kron(HWP*QWP,DP*CL)*Rhos*VH);
+PLL = ((VV)'*kron(HWP*QWP,DP*CL)*Rhos*VV)'*((VV)'*kron(HWP*QWP,DP*CL)*Rhos*VV);
 
-PRH = ((HH)'*kron(HWP*QWP,I)*Entrada*HH)'*((HH)'*kron(HWP*QWP,I)*Entrada*HH);
-PRV = ((HV)'*kron(HWP*QWP,I)*Entrada*HV)'*((HV)'*kron(HWP*QWP,I)*Entrada*HV);
-PLH = ((VH)'*kron(HWP*QWP,I)*Entrada*VH)'*((VH)'*kron(HWP*QWP,I)*Entrada*VH);
-PLV = ((VV)'*kron(HWP*QWP,I)*Entrada*VV)'*((VV)'*kron(HWP*QWP,I)*Entrada*VV);
+PRH = ((HH)'*kron(HWP*QWP,I)*Rhos*HH)'*((HH)'*kron(HWP*QWP,I)*Rhos*HH);
+PRV = ((HV)'*kron(HWP*QWP,I)*Rhos*HV)'*((HV)'*kron(HWP*QWP,I)*Rhos*HV);
+PLH = ((VH)'*kron(HWP*QWP,I)*Rhos*VH)'*((VH)'*kron(HWP*QWP,I)*Rhos*VH);
+PLV = ((VV)'*kron(HWP*QWP,I)*Rhos*VV)'*((VV)'*kron(HWP*QWP,I)*Rhos*VV);
 
-PRD = ((HH)'*kron(HWP*QWP,DP)*Entrada*HH)'*((HH)'*kron(HWP*QWP,DP)*Entrada*HH);
-PRA = ((HV)'*kron(HWP*QWP,DP)*Entrada*HV)'*((HV)'*kron(HWP*QWP,DP)*Entrada*HV);
-PLD = ((VH)'*kron(HWP*QWP,DP)*Entrada*VH)'*((VH)'*kron(HWP*QWP,DP)*Entrada*VH);
-PLA = ((VV)'*kron(HWP*QWP,DP)*Entrada*VV)'*((VV)'*kron(HWP*QWP,DP)*Entrada*VV);
+PRD = ((HH)'*kron(HWP*QWP,DP)*Rhos*HH)'*((HH)'*kron(HWP*QWP,DP)*Rhos*HH);
+PRA = ((HV)'*kron(HWP*QWP,DP)*Rhos*HV)'*((HV)'*kron(HWP*QWP,DP)*Rhos*HV);
+PLD = ((VH)'*kron(HWP*QWP,DP)*Rhos*VH)'*((VH)'*kron(HWP*QWP,DP)*Rhos*VH);
+PLA = ((VV)'*kron(HWP*QWP,DP)*Rhos*VV)'*((VV)'*kron(HWP*QWP,DP)*Rhos*VV);
 
 % Produto tensorial entre as matrizes de Pauli
 s00 = kron(s0,s0);
@@ -175,12 +176,7 @@ S32 = PHR-PHL-PVR+PVL;
 S33 = PHH-PHV-PVH+PVV;
 
 % Matriz densidade calculada através das probalidades de projeção
-Rho = (1/4)*(S00*s00+S01*s01+S02*s02+S03*s03+S10*s10+S11*s11+S12*s12+...
+Rho_parcial_SzSx = (1/4)*(S00*s00+S01*s01+S02*s02+S03*s03+S10*s10+S11*s11+S12*s12+...
     S13*s13+S20*s20+S21*s21+S22*s22+S23*s23+S30*s30+S31*s31+S32*s32+S33*s33);
 
-% Para conferir o resultado da matriz densidade
-rho = Entrada*(Entrada)';
-    for j=1:16
-        assert(Rho(j) < (rho(j)+exp(-10)) && Rho(j) > (rho(j)-exp(-10)))
-    end
 end
