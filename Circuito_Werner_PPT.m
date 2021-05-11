@@ -38,8 +38,8 @@ for n=1:101
     W_P_101(n,1) = P1;
     Parametro = P1;
     Rhos = 0;
-    
-    
+
+
     % Tomografia dos 5 estados    
     for m=1:5
         Rho = Tomografia(Entrada{m});        
@@ -47,32 +47,32 @@ for n=1:101
         Soma = Rhos+Rho;
         Rhos = Soma;
     end
-    
+
     % Teste do traço unitário
     Traco = Rhos(1,1)+Rhos(2,2)+Rhos(3,3)+Rhos(4,4);    
     assert(Traco < (1+exp(-10)) && Traco > (-1-exp(-10)))
-    
-    % Tomografia parcial
-   Rho_parcial_SzSy = Tomografia_parcial_SzSy(Rhos); % Não foi medido em Sx
-   Rho_parcial_SzSx = Tomografia_parcial_SzSx(Rhos); % Não foi medido em Sy
 
-   %Armazenamento da matriz densidade parcial
-   Werner_parcial_SzSy = reshape(Rho_parcial_SzSy, 1, 16);
-   Werner_parcial1 = real(Werner_parcial_SzSy);
-   W_parcial_SzSy_101(n, 1:16) = (Werner_parcial1);
-   
-   
-   Werner_parcial_SzSx = reshape(Rho_parcial_SzSy, 1, 16);
-   Werner_parcial2 = real(Werner_parcial_SzSx);
-   W_parcial_SzSx_101(n, 1:16) = (Werner_parcial2);
-        
+    % Tomografia parcial
+    Rho_parcial_SzSy = Tomografia_parcial_SzSy(Rhos); % Não foi medido em Sx
+    Rho_parcial_SzSx = Tomografia_parcial_SzSx(Rhos); % Não foi medido em Sy
+
+    %Armazenamento da matriz densidade parcial
+    Werner_parcial_SzSy = reshape(Rho_parcial_SzSy, 1, 16);
+    Werner_parcial1 = real(Werner_parcial_SzSy);
+    W_parcial_SzSy_101(n, 1:16) = (Werner_parcial1);
+
+
+    Werner_parcial_SzSx = reshape(Rho_parcial_SzSy, 1, 16);
+    Werner_parcial2 = real(Werner_parcial_SzSx);
+    W_parcial_SzSx_101(n, 1:16) = (Werner_parcial2);
+
     % Armazenamento da matriz densidade do estado de Werner  
     % Conversão de dados
     Werner = reshape(Rhos, 1, 16);
     Werner1 = real(Werner);
     W_estados_101(n,1:16) = (Werner1);
-        
-    
+
+
     % Cálculo PPT
     % Transposição parcial em relação ao sistema A
     a1 = [Rhos(1,3:4); Rhos(2,3:4)];
@@ -82,10 +82,10 @@ for n=1:101
     B1 = [Rhos(1,1:2); Rhos(2,1:2)];
     B2 = [Rhos(3,3:4); Rhos(4,3:4)];
     RhosPPT = [B1 A1; A2 B2];
-    
+
     % Calculando os autovalores
     Autovalores = eig(RhosPPT);
-    
+
     % Definindo se o estado é emaranhado: emaranhado = 0 e separável = 1
     if (Autovalores(1)<(-1*exp(-10)))
         AutNeg=0;
@@ -103,18 +103,18 @@ for n=1:101
         AutNeg=1;
         Rotulo = 'Separável';
     end
-    
-   %  Teste do resultado: estado de Werner é emaranho se P1 > 1/3
+
+    %  Teste do resultado: estado de Werner é emaranho se P1 > 1/3
     if(P1 > 1/3)
         assert(AutNeg == 0)
     else
         assert(AutNeg == 1)
     end
-    
+
     % Armazenamento do resultado PPT
     Resultado(n,1) = (AutNeg);
     Rotulos{n,1} = (Rotulo);
-    
+
     % Preparando dados para o gráfico classificatório
     if (Resultado(n) == 1)
         x(n) = W_P_101(n);
