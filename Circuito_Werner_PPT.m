@@ -76,7 +76,7 @@ for n=1:101
     % Conversão de dados
     Werner = reshape(Rhos, 1, 16);
     Werner1 = real(Werner);
-    W_estados_101(n,1:16) = (Werner1);
+    W_completo_101(n,1:16) = (Werner1);
 
 
     % Cálculo PPT
@@ -150,9 +150,9 @@ end
 % Exportação de dados
 Rotulos = categorical(Rotulos);
 W_PPT_101 = dummyvar(Rotulos);
-Dados = horzcat(W_estados_101, W_PPT_101);
+%Dados = horzcat(W_completo_101, W_PPT_101);
 %csvwrite('Dados_1001.csv', Dados);
-save('W_estados_101.mat', 'W_estados_101');
+save('W_completo_101.mat', 'W_completo_101');
 save('W_PPT_101.mat','W_PPT_101');
 save('W_P_101.mat', 'W_P_101');
 save('W_parcial_SzSy_101.mat', 'W_parcial_SzSy_101');
