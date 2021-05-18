@@ -35,7 +35,7 @@ for n=1:101
     P2 = (1-P1)/4;
     Entrada = {sqrt(P1)*Bell1 (sqrt(P2))*E0 (sqrt(P2))*E01 (sqrt(P2))*E10...
         (sqrt(P2))*E11};
-    W_P_101(n,1) = P1;
+    W_Peso_101(n,1) = P1;
     Parametro = P1;
     Rhos = 0;
 
@@ -123,14 +123,14 @@ for n=1:101
 
     % Preparando dados para o gráfico classificatório
     if (Resultado(n) == 1)
-        x(n) = W_P_101(n);
+        x(n) = W_Peso_101(n);
         y(n) = 1;
     else
         x(n) = -1;
         y(n) = -1;
     end
     if (Resultado(n) == 0)
-        z(n) = W_P_101(n);
+        z(n) = W_Peso_101(n);
         k(n) = 0;
     else
         z(n) = -1;
@@ -154,7 +154,7 @@ W_PPT_101 = dummyvar(Rotulos);
 %csvwrite('Dados_1001.csv', Dados);
 save('W_completo_101.mat', 'W_completo_101');
 save('W_PPT_101.mat','W_PPT_101');
-save('W_P_101.mat', 'W_P_101');
+save('W_Peso_101.mat', 'W_Peso_101');
 save('W_parcial_SzSy_101.mat', 'W_parcial_SzSy_101');
 save('W_parcial_SzSx_101.mat', 'W_parcial_SzSx_101');
 save('W_parcial_SzSxParcial_101.mat', 'W_parcial_SzSxParcial_101');
