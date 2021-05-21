@@ -53,10 +53,10 @@ for n=1:101
     assert(Traco < (1+exp(-10)) && Traco > (-1-exp(-10)))
 
     % Tomografia parcial
-    Rho_parcial_SzSy = Tomografia_parcial_SzSy(Rhos); % Não foi medido em Sx
-    Rho_parcial_SzSx = Tomografia_parcial_SzSx(Rhos); % Não foi medido em Sy
-    Rho_parcial_SzSxParcial = Tomografia_parcial_SzSxParcial(Rhos); % Não foi medido em Sy...
-    % ... e mediu parcialmente Sx
+    Rho_parcial_SzSy = Tomografia_parcial_SzSy_error(Rhos); % Não foi medido em Sx
+    Rho_parcial_SzSx = Tomografia_parcial_SzSx_error(Rhos); % Não foi medido em Sy
+    Rho_parcial_SzSxParcial = Tomografia_parcial_SzSxParcial_error(Rhos); % Não foi medido em...
+    % Sy e mediu parcialmente Sx
 
     %Armazenamento da matriz densidade parcial
     Werner_parcial_SzSy = reshape(Rho_parcial_SzSy, 1, 16);
@@ -174,7 +174,7 @@ xticks([0:0.1:1])
 yticks([0 1])
 yticklabels({ })
 legend({'Separável','Emaranhado'},'Location','southwest', 'Color','none')
-title('Classificação por peso utilizando o critério PPT')
+title('Classificação por peso utilizando o critério PPT (dados com erro nos ângulos)')
 % Fixando um sombreado para P>1/3
 cm = [0 0 0 ;  0.9 0.9 0.9;  1 1 1];
 patch([(1/3) (1/3) 1.01 1.01 (1/3)]', [-0.95 1.95 1.95 -0.95 -0.95]', cm(2,:), 'EdgeColor','none', 'DisplayName', 'Área de emaranhamento')

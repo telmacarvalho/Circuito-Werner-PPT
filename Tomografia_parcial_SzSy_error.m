@@ -1,11 +1,19 @@
-function [Rho_parcial_SzSy] = Tomografia_parcial_SzSy(Rhos)
+function [Rho_parcial_SzSy] = Tomografia_parcial_SzSy_error(Rhos)
 % Dispositivos ópticos
 % Variáveis importantes
-x1 = pi/8;
-x2 = 0;
-y1 = pi/8;
-y2 = 0;
-y3 = -pi/2;
+%x1 = pi/8;
+%x2 = 0;
+%y1 = pi/8;
+%y2 = 0;
+%y3 = -pi/2;
+
+% Adição de erros nos ângulos dos instrumentos ópticos
+x1 = pi/8+(2*randi([0 1],1,1)-1)*((0.2*rand(1,1)+0.8)*pi/90);
+x2 = 0+(2*randi([0 1],1,1)-1)*((0.2*rand(1,1)+0.8)*pi/90);
+y1 = pi/8+(2*randi([0 1],1,1)-1)*((0.2*rand(1,1)+0.8)*pi/90);
+y2 = 0+(2*randi([0 1],1,1)-1)*((0.2*rand(1,1)+0.8)*pi/90);
+y3 = -pi/2+(2*randi([0 1],1,1)-1)*((0.2*rand(1,1)+0.8)*pi/90);
+
 
 %Matrizes básicas
 %Matriz identidade
