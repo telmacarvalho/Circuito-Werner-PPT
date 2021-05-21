@@ -28,14 +28,38 @@ Bell2 = 1/sqrt(2)*(kron(H,V) + kron(V,H));
 Bell3 = 1/sqrt(2)*(kron(H,H) - kron(V,V));
 Bell4 = 1/sqrt(2)*(kron(H,V) - kron(V,H));
 
-Parametro = -0.01;
-for n=1:101
+% Estabelecendo quantidade de estados gerados 
+Quant_dados = 101;
+
+if (Quant_dados == 101)
+    N = 101;
+    Parametro = -0.01;
+elseif (Quant_dados == 1001)
+    N = 1001;
+    Parametro = -0.001;
+elseif (Quant_dados == 10001)
+    N = 10001;
+    Parametro = -0.0001;
+else
+    N = 11;
+    Parametro = -0.1;
+end
+
+for n=1:N
     % Estabelecendo os pesos
-    P1 = Parametro+0.01;
+    if (Quant_dados == 101)
+         P1 = Parametro+0.01;
+    elseif (Quant_dados == 1001)
+        P1 = Parametro+0.001;
+    elseif (Quant_dados == 10001)
+        P1 = Parametro+0.0001;
+    else
+        P1 = Parametro+0.1;
+    end   
     P2 = (1-P1)/4;
     Entrada = {sqrt(P1)*Bell1 (sqrt(P2))*E0 (sqrt(P2))*E01 (sqrt(P2))*E10...
         (sqrt(P2))*E11};
-    W_Peso_101(n,1) = P1;
+    W_Peso(n,1) = P1;
     Parametro = P1;
     Rhos = 0;
 
@@ -53,30 +77,30 @@ for n=1:101
     assert(Traco < (1+exp(-10)) && Traco > (-1-exp(-10)))
 
     % Tomografia parcial
-    Rho_parcial_SzSy = Tomografia_parcial_SzSy_error(Rhos); % Não foi medido em Sx
-    Rho_parcial_SzSx = Tomografia_parcial_SzSx_error(Rhos); % Não foi medido em Sy
-    Rho_parcial_SzSxParcial = Tomografia_parcial_SzSxParcial_error(Rhos); % Não foi medido em...
+    Rho_parcial_SzSy = Tomografia_parcial_SzSy_erro(Rhos); % Não foi medido em Sx
+    Rho_parcial_SzSx = Tomografia_parcial_SzSx_erro(Rhos); % Não foi medido em Sy
+    Rho_parcial_SzSxParcial = Tomografia_parcial_SzSxParcial_erro(Rhos); % Não foi medido em...
     % Sy e mediu parcialmente Sx
 
     %Armazenamento da matriz densidade parcial
     Werner_parcial_SzSy = reshape(Rho_parcial_SzSy, 1, 16);
     Werner_parcial1 = real(Werner_parcial_SzSy);
-    W_parcial_SzSy_101(n, 1:16) = (Werner_parcial1);
+    W_parcial_SzSy_erro(n, 1:16) = (Werner_parcial1);
 
 
     Werner_parcial_SzSx = reshape(Rho_parcial_SzSx, 1, 16);
     Werner_parcial2 = real(Werner_parcial_SzSx);
-    W_parcial_SzSx_101(n, 1:16) = (Werner_parcial2);
+    W_parcial_SzSx_erro(n, 1:16) = (Werner_parcial2);
     
     Werner_parcial_SzSxParcial = reshape(Rho_parcial_SzSxParcial, 1, 16);
     Werner_parcial3 = real(Werner_parcial_SzSxParcial);
-    W_parcial_SzSxParcial_101(n, 1:16) = (Werner_parcial3);
+    W_parcial_SzSxParcial_erro(n, 1:16) = (Werner_parcial3);
 
     % Armazenamento da matriz densidade do estado de Werner  
     % Conversão de dados
     Werner = reshape(Rhos, 1, 16);
     Werner1 = real(Werner);
-    W_completo_101(n,1:16) = (Werner1);
+    W_completo(n,1:16) = (Werner1);
 
 
     % Cálculo PPT
@@ -123,14 +147,14 @@ for n=1:101
 
     % Preparando dados para o gráfico classificatório
     if (Resultado(n) == 1)
-        x(n) = W_Peso_101(n);
+        x(n) = W_Peso(n);
         y(n) = 1;
     else
         x(n) = -1;
         y(n) = -1;
     end
     if (Resultado(n) == 0)
-        z(n) = W_Peso_101(n);
+        z(n) = W_Peso(n);
         k(n) = 0;
     else
         z(n) = -1;
@@ -138,26 +162,15 @@ for n=1:101
     end
 end
 
-% Gráfico em barra 
-%x = [P];
-%y = [Resultado];
-%figure(1), clf%
-%bar (x,y)
-%xlabel('Peso (P)')
-%ylabel('Estados separáveis')
-%title('Estados separáveis pelo critério PPT por peso')
-
 % Exportação de dados
 Rotulos = categorical(Rotulos);
-W_PPT_101 = dummyvar(Rotulos);
-%Dados = horzcat(W_completo_101, W_PPT_101);
-%csvwrite('Dados_1001.csv', Dados);
-save('W_completo_101.mat', 'W_completo_101');
-save('W_PPT_101.mat','W_PPT_101');
-save('W_Peso_101.mat', 'W_Peso_101');
-save('W_parcial_SzSy_101.mat', 'W_parcial_SzSy_101');
-save('W_parcial_SzSx_101.mat', 'W_parcial_SzSx_101');
-save('W_parcial_SzSxParcial_101.mat', 'W_parcial_SzSxParcial_101');
+W_PPT = dummyvar(Rotulos);
+save('W_completo.mat', 'W_completo');
+save('W_PPT.mat','W_PPT');
+save('W_Peso.mat', 'W_Peso');
+save('W_parcial_SzSy_erro.mat', 'W_parcial_SzSy_erro');
+save('W_parcial_SzSx_erro.mat', 'W_parcial_SzSx_erro');
+save('W_parcial_SzSxParcial_erro.mat', 'W_parcial_SzSxParcial_erro');
 
 
 % Gráfico classificatório

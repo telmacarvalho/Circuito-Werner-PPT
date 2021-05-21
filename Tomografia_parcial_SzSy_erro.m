@@ -1,4 +1,4 @@
-function [Rho_parcial_SzSx] = Tomografia_parcial_SzSx_error(Rhos)
+function [Rho_parcial_SzSy] = Tomografia_parcial_SzSy_erro(Rhos)
 % Dispositivos ópticos
 % Variáveis importantes
 %x1 = pi/8;
@@ -14,6 +14,7 @@ y1 = pi/8+(2*randi([0 1],1,1)-1)*((0.2*rand(1,1)+0.8)*pi/90);
 y2 = 0+(2*randi([0 1],1,1)-1)*((0.2*rand(1,1)+0.8)*pi/90);
 y3 = -pi/2+(2*randi([0 1],1,1)-1)*((0.2*rand(1,1)+0.8)*pi/90);
 
+
 %Matrizes básicas
 %Matriz identidade
 I = [1 0; 0 1];
@@ -23,21 +24,21 @@ s1 = [0 1;1 0];
 s2 = [0 -1i; 1i 0];
 s3 = [1 0; 0 -1];
 
-%HWP
-HWP = [[cos(2*x1), sin(2*x1)]; [sin(2*x1), -cos(2*x1)]];
+%HWP (não será medido para não medir Sx)
+%HWP = [[cos(2*x1), sin(2*x1)]; [sin(2*x1), -cos(2*x1)]];
+HWP = I;
 
-%QWP (não será medido para não medir Sy)
-%QWP = [[cos(2*x2)^2-1i*(sin(2*x2))^2, cos(2*x2)*sin(2*x2)*(1+1i)];...
-%    [cos(2*x2)*sin(2*x2)*(1+1i), -1i*(cos(2*x2))^2+(sin(2*x2))^2]];
-QWP = I;
+%QWP 
+QWP = [[cos(2*x2)^2-1i*(sin(2*x2))^2, cos(2*x2)*sin(2*x2)*(1+1i)];...
+    [cos(2*x2)*sin(2*x2)*(1+1i), -1i*(cos(2*x2))^2+(sin(2*x2))^2]];
+    
+%DP (não será medido para não medir Sx)
+%DP = [[cos(2*y1), sin(2*y1)]; [sin(2*y1), -cos(2*y1)]];
+DP = I;
 
-%DP
-DP = [[cos(2*y1), sin(2*y1)]; [sin(2*y1), -cos(2*y1)]];
-
-%CL (não será medido para não medir Sy)
-%CL = [[cos(y2)^2+(exp(1i*y3))*(sin(y2))^2, cos(y2)*sin(y2)*(exp(1i*y3)-1)];...
-%    [(exp(1i*y3)-1)*sin(y2)*cos(y2), exp(1i*y3)*(cos(y2))^2+(sin(y2))^2]];
-CL = I;
+%CL
+CL = [[cos(y2)^2+(exp(1i*y3))*(sin(y2))^2, cos(y2)*sin(y2)*(exp(1i*y3)-1)];...
+    [(exp(1i*y3)-1)*sin(y2)*cos(y2), exp(1i*y3)*(cos(y2))^2+(sin(y2))^2]];
 
 %Beam Splitter matrix 50/50
 BS = 1/sqrt(2)*[1 1; 1 -1];
@@ -183,7 +184,7 @@ S32 = PHR-PHL-PVR+PVL;
 S33 = PHH-PHV-PVH+PVV;
 
 % Matriz densidade calculada através das probalidades de projeção
-Rho_parcial_SzSx = (1/4)*(S00*s00+S01*s01+S02*s02+S03*s03+S10*s10+S11*s11+S12*s12+...
+Rho_parcial_SzSy = (1/4)*(S00*s00+S01*s01+S02*s02+S03*s03+S10*s10+S11*s11+S12*s12+...
     S13*s13+S20*s20+S21*s21+S22*s22+S23*s23+S30*s30+S31*s31+S32*s32+S33*s33);
 
 end
