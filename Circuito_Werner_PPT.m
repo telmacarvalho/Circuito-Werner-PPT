@@ -29,7 +29,7 @@ Bell3 = 1/sqrt(2)*(kron(H,H) - kron(V,V));
 Bell4 = 1/sqrt(2)*(kron(H,V) - kron(V,H));
 
 % Estabelecendo quantidade de estados gerados 
-Quant_dados = 101;
+Quant_dados = 11;
 
 if (Quant_dados == 101)
     N = 101;
@@ -166,7 +166,7 @@ end
 % Exportação de dados
 Rotulos = categorical(Rotulos);
 W_PPT = dummyvar(Rotulos);
-gissave('W_completo.mat', 'W_completo');
+save('W_completo.mat', 'W_completo');
 save('W_PPT.mat','W_PPT');
 save('W_Peso.mat', 'W_Peso');
 save('W_parcial_SzSy.mat', 'W_parcial_SzSy');
