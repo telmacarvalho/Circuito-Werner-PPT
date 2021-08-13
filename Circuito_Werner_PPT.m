@@ -115,6 +115,8 @@ for n=1:N
 
     % Calculando os autovalores
     Autovalores = eig(RhosPPT);
+    Autovalores1 = reshape(Autovalores, 1, 4);
+    Lista_autovalores(n,1:4) = Autovalores1;
 
     % Definindo se o estado é emaranhado: emaranhado = 0 e separável = 1
     if (Autovalores(1)<(-1*exp(-10)))
@@ -172,6 +174,7 @@ save('W_Peso.mat', 'W_Peso');
 save('W_parcial_SzSy_erro.mat', 'W_parcial_SzSy_erro');
 save('W_parcial_SzSx_erro.mat', 'W_parcial_SzSx_erro');
 save('W_parcial_SzSxParcial_erro.mat', 'W_parcial_SzSxParcial_erro');
+save('Lista_autovalores.mat', 'Lista_autovalores');
 
 
 % Gráfico classificatório
