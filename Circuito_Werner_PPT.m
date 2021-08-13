@@ -16,7 +16,7 @@ HH = kron(H,H);
 HV = kron(H,V);
 VH = kron(V,H);
 VV = kron(V,V);
-E0 = [0; 0; 0; 0];
+%E0 = [0; 0; 0; 0];
 
 % Entrada de estados
 E00 = HH;
@@ -57,7 +57,7 @@ for n=1:N
         P1 = Parametro+0.1;
     end   
     P2 = (1-P1)/4;
-    Entrada = {sqrt(P1)*Bell1 (sqrt(P2))*E0 (sqrt(P2))*E01 (sqrt(P2))*E10...
+    Entrada = {sqrt(P1)*Bell1 (sqrt(P2))*E00 (sqrt(P2))*E01 (sqrt(P2))*E10...
         (sqrt(P2))*E11};
     W_Peso(n,1) = P1;
     Parametro = P1;
@@ -74,7 +74,7 @@ for n=1:N
 
     % Teste do traço unitário
     Traco = Rhos(1,1)+Rhos(2,2)+Rhos(3,3)+Rhos(4,4);    
-    assert(Traco < (1+exp(-10)) && Traco > (-1-exp(-10)))
+    assert(Traco < (1+exp(-10)) && Traco > (1-exp(-10)))
 
     % Tomografia parcial
     Rho_parcial_SzSy = Tomografia_parcial_SzSy_erro(Rhos); % Não foi medido em Sx
