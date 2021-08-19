@@ -95,6 +95,10 @@ for n=1:N
     Werner_parcial_SzSxParcial = reshape(Rho_parcial_SzSxParcial, 1, 16);
     Werner_parcial3 = real(Werner_parcial_SzSxParcial);
     W_parcial_SzSxParcial_erro(n, 1:16) = (Werner_parcial3);
+    
+    Werner_parcial_SzOnly = reshape(Rho_parcial_SzSxParcial, 1, 16);
+    Werner_parcial4 = real(Werner_parcial_SzSxParcial);
+    W_parcial_SzOnly_erro(n, 1:16) = (Werner_parcial4);
 
     % Armazenamento da matriz densidade do estado de Werner  
     % Conversão de dados
@@ -174,6 +178,7 @@ save('W_Peso.mat', 'W_Peso');
 save('W_parcial_SzSy_erro.mat', 'W_parcial_SzSy_erro');
 save('W_parcial_SzSx_erro.mat', 'W_parcial_SzSx_erro');
 save('W_parcial_SzSxParcial_erro.mat', 'W_parcial_SzSxParcial_erro');
+save('W_parcial_SzOnly_erro.mat', 'W_parcial_SzOnly_erro');
 save('Lista_autovalores.mat', 'Lista_autovalores');
 
 
