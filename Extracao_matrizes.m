@@ -1,5 +1,5 @@
 
-%load('W_completo.mat')
+load('W_completo.mat')
 
 for n = 1:1001
     %Werner = reshape(W_completo(n, 1:16), 4, 4);
