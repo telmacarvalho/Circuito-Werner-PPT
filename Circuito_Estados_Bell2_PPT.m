@@ -56,15 +56,15 @@ for n=1:N
     else
         P1 = Parametro+0.1;
     end   
-    P2 = (1-P1);
-    Entrada = {sqrt(P1)*Bell2 (sqrt(P2))*E00};
+    P2 = (1-P1)/2;
+    Entrada = {sqrt(P1)*Bell2 (sqrt(P2))*E00 (sqrt(P2))*E11};
     B_Peso(n,1) = P1;
     Parametro = P1;
     Rhos = 0;
 
 
     % Tomografia dos 5 estados    
-    for m=1:2
+    for m=1:3
         Rho = Tomografia(Entrada{m});        
         % Soma das matrizes densidade
         Soma = Rhos+Rho;
