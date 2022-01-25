@@ -56,15 +56,15 @@ for n=1:N
     else
         P1 = Parametro+0.1;
     end   
-    P2 = (1-P1);
-    Entrada = {sqrt(P1)*Bell2 (sqrt(P2))*Bell3};
-    W_Peso(n,1) = P1;
+    P2 = (1-P1)/2;
+    Entrada = {sqrt(P1)*Bell1 (sqrt(P2))*E01 (sqrt(P2))*E10};
+    B_Peso(n,1) = P1;
     Parametro = P1;
     Rhos = 0;
 
 
     % Tomografia dos 5 estados    
-    for m=1:2
+    for m=1:3
         Rho = Tomografia(Entrada{m});        
         % Soma das matrizes densidade
         Soma = Rhos+Rho;
@@ -84,26 +84,26 @@ for n=1:N
     %Armazenamento da matriz densidade parcial
     Werner_parcial_SzSy = reshape(Rho_parcial_SzSy, 1, 16);
     Werner_parcial1 = real(Werner_parcial_SzSy);
-    W_parcial_SzSy_erro(n, 1:16) = (Werner_parcial1);
+    B_parcial_SzSy_erro(n, 1:16) = (Werner_parcial1);
 
 
     Werner_parcial_SzSx = reshape(Rho_parcial_SzSx, 1, 16);
     Werner_parcial2 = real(Werner_parcial_SzSx);
-    W_parcial_SzSx_erro(n, 1:16) = (Werner_parcial2);
+    B_parcial_SzSx_erro(n, 1:16) = (Werner_parcial2);
     
     Werner_parcial_SzSxParcial = reshape(Rho_parcial_SzSxParcial, 1, 16);
     Werner_parcial3 = real(Werner_parcial_SzSxParcial);
-    W_parcial_SzSxParcial_erro(n, 1:16) = (Werner_parcial3);
+    B_parcial_SzSxParcial_erro(n, 1:16) = (Werner_parcial3);
     
     Werner_parcial_SzOnly = reshape(Rho_parcial_SzSxParcial, 1, 16);
     Werner_parcial4 = real(Werner_parcial_SzSxParcial);
-    W_parcial_SzOnly_erro(n, 1:16) = (Werner_parcial4);
+    B_parcial_SzOnly_erro(n, 1:16) = (Werner_parcial4);
 
     % Armazenamento da matriz densidade do estado de Werner  
     % Conversão de dados
     Werner = reshape(Rhos, 1, 16);
     Werner1 = real(Werner);
-    W_completo(n,1:16) = (Werner1);
+    B_completo(n,1:16) = (Werner1);
 
 
     % Cálculo PPT
@@ -145,14 +145,14 @@ for n=1:N
 
     % Preparando dados para o gráfico classificatório
     if (Resultado(n) == 1)
-        x(n) = W_Peso(n);
+        x(n) = B_Peso(n);
         y(n) = 1;
     else
         x(n) = -1;
         y(n) = -1;
     end
     if (Resultado(n) == 0)
-        z(n) = W_Peso(n);
+        z(n) = B_Peso(n);
         k(n) = 0;
     else
         z(n) = -1;
@@ -163,14 +163,14 @@ end
 % Exportação de dados
 Rotulos = categorical(Rotulos);
 PPT = dummyvar(Rotulos);
-W_PPT = PPT( :, 2);
-save('W_completo.mat', 'W_completo');
-save('W_PPT.mat','W_PPT');
-save('W_Peso.mat', 'W_Peso');
-save('W_parcial_SzSy_erro.mat', 'W_parcial_SzSy_erro');
-save('W_parcial_SzSx_erro.mat', 'W_parcial_SzSx_erro');
-save('W_parcial_SzSxParcial_erro.mat', 'W_parcial_SzSxParcial_erro');
-save('W_parcial_SzOnly_erro.mat', 'W_parcial_SzOnly_erro');
+B_PPT = PPT( :, 2);
+save('B_completo.mat', 'B_completo');
+save('B_PPT.mat','B_PPT');
+save('B_Peso.mat', 'B_Peso');
+save('B_parcial_SzSy_erro.mat', 'B_parcial_SzSy_erro');
+save('B_parcial_SzSx_erro.mat', 'B_parcial_SzSx_erro');
+save('B_parcial_SzSxParcial_erro.mat', 'B_parcial_SzSxParcial_erro');
+save('B_parcial_SzOnly_erro.mat', 'B_parcial_SzOnly_erro');
 save('Lista_autovalores.mat', 'Lista_autovalores');
 
 
