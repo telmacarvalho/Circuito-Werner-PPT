@@ -57,7 +57,7 @@ for n=1:N
         P1 = Parametro+0.1;
     end   
     P2 = (1-P1)/2;
-    Entrada = {sqrt(P1)*Bell1 (sqrt(P2))*E01 (sqrt(P2))*E10};
+    Entrada = {sqrt(P1)*Bell3 (sqrt(P2))*E01 (sqrt(P2))*E10};
     B_Peso(n,1) = P1;
     Parametro = P1;
     Rhos = 0;
