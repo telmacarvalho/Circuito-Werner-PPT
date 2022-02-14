@@ -162,7 +162,7 @@ end
 % Exportação de dados
 Rotulos = categorical(Rotulos);
 PPT = dummyvar(Rotulos);
-B_PPT = PPT( :, :);
+B_PPT = PPT( :, 1);
 save('B_completo.mat', 'B_completo');
 save('B_PPT.mat','B_PPT');
 save('B_Peso.mat', 'B_Peso');
