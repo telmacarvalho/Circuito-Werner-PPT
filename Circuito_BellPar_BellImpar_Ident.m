@@ -56,7 +56,7 @@ for n=1:N
         P1 = Parametro+0.1;
     end   
     P2 = (1-P1)/4;
-    Entrada = {sqrt((P1)*7/10)*Bell1 sqrt((P1)*3/10)*Bell2 (sqrt(P2))*E00 (sqrt(P2))*E01 (sqrt(P2))*E10 (sqrt(P2))*E11};
+    Entrada = {sqrt((P1)*6/10)*Bell1 sqrt((P1)*4/10)*Bell2 (sqrt(P2))*E00 (sqrt(P2))*E01 (sqrt(P2))*E10 (sqrt(P2))*E11};
     B_Peso(n,1) = P1;
     Parametro = P1;
     Rhos = 0;
@@ -162,7 +162,7 @@ end
 % Exportação de dados
 Rotulos = categorical(Rotulos);
 PPT = dummyvar(Rotulos);
-B_PPT = PPT( :, 1);
+B_PPT = PPT( :, 2);
 save('B_completo.mat', 'B_completo');
 save('B_PPT.mat','B_PPT');
 save('B_Peso.mat', 'B_Peso');
