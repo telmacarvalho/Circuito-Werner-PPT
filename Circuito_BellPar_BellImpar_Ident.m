@@ -56,7 +56,8 @@ for n=1:N
         P1 = Parametro+0.1;
     end   
     P2 = (1-P1)/4;
-    Entrada = {sqrt((P1)*6/10)*Bell1 sqrt((P1)*4/10)*Bell2 (sqrt(P2))*E00 (sqrt(P2))*E01 (sqrt(P2))*E10 (sqrt(P2))*E11};
+    E = 0.2;
+    Entrada = {sqrt(P1*E)*Bell2 sqrt(P1*(1-E))*Bell1 (sqrt(P2))*E00 (sqrt(P2))*E01 (sqrt(P2))*E10 (sqrt(P2))*E11};
     B_Peso(n,1) = P1;
     Parametro = P1;
     Rhos = 0;
@@ -166,11 +167,11 @@ B_PPT = PPT( :, 2);
 save('B_completo.mat', 'B_completo');
 save('B_PPT.mat','B_PPT');
 save('B_Peso.mat', 'B_Peso');
-save('B_parcial_SzSy_erro.mat', 'B_parcial_SzSy_erro');
-save('B_parcial_SzSx_erro.mat', 'B_parcial_SzSx_erro');
-save('B_parcial_SzSxParcial_erro.mat', 'B_parcial_SzSxParcial_erro');
+%save('B_parcial_SzSy_erro.mat', 'B_parcial_SzSy_erro');
+%save('B_parcial_SzSx_erro.mat', 'B_parcial_SzSx_erro');
+%save('B_parcial_SzSxParcial_erro.mat', 'B_parcial_SzSxParcial_erro');
 save('B_parcial_SzOnly_erro.mat', 'B_parcial_SzOnly_erro');
-save('Lista_autovalores.mat', 'Lista_autovalores');
+%save('Lista_autovalores.mat', 'Lista_autovalores');
 
 
 % Gráfico classificatório
