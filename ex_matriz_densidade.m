@@ -20,10 +20,20 @@ Bell4 = 1/sqrt(2)*(kron(H,V) - kron(V,H));
 
 rho_bell1=Bell1*(Bell1)';
 rho_bell2=Bell2*(Bell2)';
+rho_bell3=Bell3*(Bell3)';
+rho_bell4=Bell4*(Bell4)';
 
 p=0.5;
 
-rho=p*rho_bell1+(1-p)*rho_bell2;
+rho1=p*rho_bell1+(1-p)*rho_bell2;
+rho2=p*rho_bell3+(1-p)*rho_bell4;
 
-Traco = rho(1,1)+rho(2,2)+rho(3,3)+rho(4,4);    
+p1=0.5;
+
+Rho= p1*rho1+(1-p1)*rho2;
+
+Traco2 = rho2(1,1)+rho2(2,2)+rho2(3,3)+rho2(4,4);    
+assert(Traco2 < (1+exp(-10)) && Traco2 > (1-exp(-10)))
+
+Traco = Rho(1,1)+Rho(2,2)+Rho(3,3)+Rho(4,4);    
 assert(Traco < (1+exp(-10)) && Traco > (1-exp(-10)))
