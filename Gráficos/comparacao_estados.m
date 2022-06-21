@@ -1,7 +1,7 @@
 clear all;
 clc;
 
-load('W_parcial_SzOnly_erro.mat');
+load('W_parcial_SzSy_erro.mat');
 load('W_Peso.mat');
 k=1;
 verdadeiro = [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1];
@@ -13,7 +13,7 @@ for i=1:1001
         disp('Comparação finalizada.')
     else
         for j=k:1001
-           resposta= W_parcial_SzOnly_erro(i,:) == W_parcial_SzOnly_erro(j,:);
+           resposta= W_parcial_SzSy_erro(i,:) == W_parcial_SzSy_erro(j,:);
            contador = contador+1;
            if(resposta==verdadeiro)
                disp('Existem matrizes iguais.')
@@ -22,12 +22,12 @@ for i=1:1001
            end
         end
         if(iguais==0)
-            P_Sz(i,1)=1;
+            P_SzSy(i,1)=1.3;
         else
-            P_Sz(i,1)=0;
+            P_SzSy(i,1)=1.1;
         end
         controle(i,1)=contador;
     end    
 end
 
-save('P_Sz.mat', 'P_Sz');
+save('P_SzSy.mat', 'P_SzSy');
