@@ -86,6 +86,7 @@ for n=1:N
     Rho_parcial_SzSx = Tomografia_parcial_SzSx_erro(Rhos); % Não foi medido em Sy
     Rho_parcial_SzSxParcial = Tomografia_parcial_SzSxParcial_erro(Rhos); % Não foi medido em...
     % Sy e mediu parcialmente Sx
+    Rho_parcial_SzOnly_erro = Tomografia_parcial_SzOnly_erro(Rhos); % Não foi medido em Sx e Sy
 
     %Armazenamento da matriz densidade parcial
     Werner_parcial_SzSy = reshape(Rho_parcial_SzSy, 1, 16);
@@ -101,7 +102,7 @@ for n=1:N
     Werner_parcial3 = real(Werner_parcial_SzSxParcial);
     W_parcial_SzSxParcial_erro(n, 1:16) = (Werner_parcial3);
     
-    Werner_parcial_SzOnly = reshape(Rho_parcial_SzSxParcial, 1, 16);
+    Werner_parcial_SzOnly = reshape(Rho_parcial_SzOnly_erro, 1, 16);
     Werner_parcial4 = real(Werner_parcial_SzSxParcial);
     W_parcial_SzOnly_erro(n, 1:16) = (Werner_parcial4);
 
