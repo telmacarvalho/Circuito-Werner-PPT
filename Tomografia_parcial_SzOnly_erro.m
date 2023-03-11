@@ -1,4 +1,4 @@
-function [Rho_parcial_SzOnly] = Tomografia_parcial_SzOnly_erro(Rhos)
+function [Rho_parcial_SzOnly_erro] = Tomografia_parcial_SzOnly_erro(Rhos)
 % Dispositivos ópticos
 % Variáveis importantes
 %x1 = pi/8;
@@ -185,7 +185,7 @@ S32 = PHR-PHL-PVR+PVL;
 S33 = PHH-PHV-PVH+PVV;
 
 % Matriz densidade calculada através das probalidades de projeção
-Rho_parcial_SzSxParcial = (1/4)*(S00*s00+S01*s01+S02*s02+S03*s03+S10*s10+S11*s11+S12*s12+...
+Rho_parcial_SzOnly_erro = (1/4)*(S00*s00+S01*s01+S02*s02+S03*s03+S10*s10+S11*s11+S12*s12+...
     S13*s13+S20*s20+S21*s21+S22*s22+S23*s23+S30*s30+S31*s31+S32*s32+S33*s33);
 
 end
