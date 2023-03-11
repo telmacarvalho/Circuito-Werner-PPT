@@ -31,7 +31,10 @@ Bell4 = 1/sqrt(2)*(kron(H,V) - kron(V,H));
 % Estabelecendo quantidade de estados gerados 
 Quant_dados = 1001;
 
-if (Quant_dados == 101)
+if (Quant_dados == 11)
+    N = 11;
+    Parametro = -0.1;
+elseif (Quant_dados == 101)
     N = 101;
     Parametro = -0.01;
 elseif (Quant_dados == 1001)
@@ -47,8 +50,10 @@ end
 
 for n=1:N
     % Estabelecendo os pesos
-    if (Quant_dados == 101)
-         P1 = Parametro+0.01;
+    if (Quant_dados == 11)
+         P1 = Parametro+0.1;
+    elseif (Quant_dados == 101)
+        P1 = Parametro+0.01;
     elseif (Quant_dados == 1001)
         P1 = Parametro+0.001;
     elseif (Quant_dados == 10001)
