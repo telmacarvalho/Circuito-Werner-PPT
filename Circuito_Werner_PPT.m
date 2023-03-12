@@ -103,7 +103,7 @@ for n=1:N
     W_parcial_SzSxParcial_erro(n, 1:16) = (Werner_parcial3);
     
     Werner_parcial_SzOnly = reshape(Rho_parcial_SzOnly_erro, 1, 16);
-    Werner_parcial4 = real(Werner_parcial_SzSxParcial);
+    Werner_parcial4 = real(Werner_parcial_SzOnly);
     W_parcial_SzOnly_erro(n, 1:16) = (Werner_parcial4);
 
     % Armazenamento da matriz densidade do estado de Werner  
