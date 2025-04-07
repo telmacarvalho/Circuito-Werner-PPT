@@ -6,3 +6,5 @@ A pesquisa teve como objetivo o desenvolvimento de uma rede neural capaz de clas
 
 A dissertação completa está disponível no arquivo [Classificação da não-separabilidade de modos
 spin-órbita com aprendizado de máquina](https://portal.if.uff.br/posgrad/wp-content/uploads/sites/3/2022/06/Telma-Fatima-Clarita-de-Carvalho_dissertacao.pdf), para leitura e consulta.
+
+Obs: Na ocasião, esse projeto foi desenvolvido em Matlab devido as disponibilidades no laboratório da universidade e maior domínio de conhecimento por parte do orientador. Contudo, eu tenho a pretenção de converte-lo para Python e usar as bibliotecas de machine learning disponíveis para um melhor resultado como projeto pessoal.
