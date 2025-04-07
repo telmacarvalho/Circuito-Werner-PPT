@@ -1,4 +1,4 @@
-# Projeto de Mestrado - Classificação de Estados Quânticos com Redes Neurais
+# Projeto de Mestrado - Classificação da não-separabilidade de modos spin-órbita com aprendizado de máquina
 
 Este repositório contém o código desenvolvido durante o meu mestrado no programa de Pós-Graduação em Física da Universidade Federal do Sul Fluminense (UFF), com financiamento da CAPES.
 
